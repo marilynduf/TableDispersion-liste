@@ -1,10 +1,10 @@
 #include <iostream>
 
-#include "hash.h"
+#include "hashTable.h"
 
 int main() {
 
-    Hash hashObj;
+    HashTable hashObj;
     int typeDeHachage;
     std::cout << "Entrez type de hachage: ";
     std::cin >> typeDeHachage;

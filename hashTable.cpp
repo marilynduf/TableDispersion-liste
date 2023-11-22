@@ -2,14 +2,14 @@
 // Created by Marilyn Dufour on 2023-11-19.
 //
 
-#include "hash.h"
+#include "hashTable.h"
 #include <iostream>
 
 /**
  * \brief Construteur
  * \param nom
  */
-Hash::Hash() {
+HashTable::HashTable() {
     for (int i = 0; i < m_tableSize; ++i) {
         hashTable[i] = new item;
         hashTable[i]->name = "empty";
@@ -25,7 +25,7 @@ Hash::Hash() {
  *      2. Ne peut pas générer un entier de plus de d*255 ex.: 'stop' = 4 (4 char) donc 4*255. (resultat : dispersion pas uniforme ce qui cause des collisions)
  * \param key
  */
-size_t Hash::hash(const std::string &key, int typedeHachage) {
+size_t HashTable::hash(const std::string &key, int typedeHachage) {
     size_t hash = 0; // type size_t car peut contenir de grande valeur (tjrs positives)
     switch (typedeHachage) {
 
@@ -63,7 +63,7 @@ size_t Hash::hash(const std::string &key, int typedeHachage) {
  * \param key
  */
 
-int Hash::numberOfItemsInIndex(int index) {
+int HashTable::numberOfItemsInIndex(int index) {
     int count = 0;
     if (hashTable[index]->name == "empty") {
         return count;
@@ -79,7 +79,7 @@ int Hash::numberOfItemsInIndex(int index) {
     return count;
 }
 
-void Hash::printTable() {
+void HashTable::printTable() {
     int number;
     for (int i = 0; i < m_tableSize; ++i) {
         number = numberOfItemsInIndex(i);
@@ -91,7 +91,7 @@ void Hash::printTable() {
     }
 }
 
-void Hash::printItemsInIndex(int index) {
+void HashTable::printItemsInIndex(int index) {
     int numberOfitems = numberOfItemsInIndex(index);
     if (!numberOfitems) {
         std::cout << "Ce bucket est vide" << std::endl;
@@ -108,11 +108,9 @@ void Hash::printItemsInIndex(int index) {
             ptr = ptr->next;
         } while (ptr != nullptr);
     }
-
-
 }
 
-void Hash::printTypedeHachage(int num) {
+void HashTable::printTypedeHachage(int num) {
     std::string msg = "type de hachage: ";
     switch (num) {
         case 1:
@@ -125,7 +123,7 @@ void Hash::printTypedeHachage(int num) {
     }
 }
 
-void Hash::addItem(std::string name, std::string drink) {
+void HashTable::addItem(std::string name, std::string drink) {
     int index = hash(name, m_typedeHachage);
     if (hashTable[index]->name == "empty") {
         hashTable[index]->name = name;
@@ -145,7 +143,7 @@ void Hash::addItem(std::string name, std::string drink) {
     }
 }
 
-void Hash::findDrink(std::string name) {
+void HashTable::findDrink(std::string name) {
     int hashIndex = hash(name, m_typedeHachage);
     std::string drink = "";
     item* ptr = hashTable[hashIndex];
@@ -162,7 +160,7 @@ void Hash::findDrink(std::string name) {
     else std::cout << drink << std::endl;
 }
 
-bool Hash::findItem(std::string name) {
+bool HashTable::findItem(std::string name) {
     int hashIndex = hash(name, m_typedeHachage);
     bool estDansTable = false;
     item* ptr = hashTable[hashIndex];
@@ -176,7 +174,7 @@ bool Hash::findItem(std::string name) {
     return estDansTable;
 }
 
-void Hash::removeItem(std::string name) {
+void HashTable::removeItem(std::string name) {
     int index = hash(name, m_typedeHachage);
     item* delPtr;
 

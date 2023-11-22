@@ -2,13 +2,13 @@
 // Created by Marilyn Dufour on 2023-11-19.
 //
 
-#ifndef CODE_HASHTABLE_HASH_H
-#define CODE_HASHTABLE_HASH_H
+#ifndef CODE_HASHTABLE_HASHTABLE_H
+#define CODE_HASHTABLE_HASHTABLE_H
 #include "string"
 
-class Hash {
+class HashTable {
 public:
-    Hash();
+    HashTable();
     // différenentes fonctions de hachage possibles
     size_t hash(const std::string &key, int typedeHachage);
 
@@ -42,4 +42,4 @@ private:
 };
 
 
-#endif //CODE_HASHTABLE_HASH_H
+#endif //CODE_HASHTABLE_HASHTABLE_H
