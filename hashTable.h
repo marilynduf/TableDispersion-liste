@@ -1,6 +1,6 @@
-//
-// Created by Marilyn Dufour on 2023-11-19.
-//
+/**
+ * \brief Classe hashTable
+ */
 
 #ifndef CODE_HASHTABLE_HASHTABLE_H
 #define CODE_HASHTABLE_HASHTABLE_H
@@ -8,27 +8,23 @@
 
 class HashTable {
 public:
+    /* constructeurs ************************************/
     HashTable();
-    // différenentes fonctions de hachage possibles
-    size_t hash(const std::string &key, int typedeHachage);
-
-    // Opérations principales
+    /* fonctions de hachages ****************************/
+    static size_t hash(const std::string &key, int typedeHachage);
+    /* opérations principales ***************************/
     void addItem(std::string name, std::string drink);
     void removeItem(std::string name);
     bool findItem(std::string name);
-
-    // setters
-    void setTypeHachage(int num) {
-        m_typedeHachage = num;
-    }
-
-    // Opérations secondaires
+    /* setters *****************************************/
+    void setTypeHachage(int num) { m_typedeHachage = num; }
+    /* opérations secondaires **************************/
     int numberOfItemsInIndex(int index);
     void findDrink(std::string name);
-    // Opérations d'Affichage
+    /* affichage ***************************************/
     void printTable();
     void printItemsInIndex(int index);
-    void printTypedeHachage(int num);
+    static void printTypedeHachage(int num);
 
 private:
     static const int m_tableSize = 4; // Static means that it can be accessed without instantiating a class. This is good for constants.
@@ -38,8 +34,7 @@ private:
         std::string drink;
         item* next;
     };
-    item* hashTable[m_tableSize]; // Contient 10 pointeurs qui pointent sur des éléments de type item (struct au dessus)
+    item* hashTable[m_tableSize]{}; // Contient 10 pointeurs qui pointent sur des éléments de type item (struct au dessus)
 };
-
 
 #endif //CODE_HASHTABLE_HASHTABLE_H

@@ -3,5 +3,9 @@ project(code_hashtable)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(code_hashtable main.cpp
-        hashTable.cpp)
+add_executable(
+        code_hashtable
+        main.cpp
+        hashTable.cpp
+        Personne.cpp
+)

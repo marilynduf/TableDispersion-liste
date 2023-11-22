@@ -1,9 +1,15 @@
 #include <iostream>
 
 #include "hashTable.h"
+#include "Personne.h"
 
 int main() {
-
+    Personne personne1;
+    Personne personne2("Petrolio", "Cappuccino");
+    personne1.setName("Petra");
+    personne1.setName("Petra");
+    std::cout << personne1.getName() << std::endl;
+    std::cout << personne2.getName() << std::endl;
     HashTable hashObj;
     int typeDeHachage;
     std::cout << "Entrez type de hachage: ";

@@ -10,25 +10,23 @@
  * \param nom
  */
 HashTable::HashTable() {
-    for (int i = 0; i < m_tableSize; ++i) {
-        hashTable[i] = new item;
-        hashTable[i]->name = "empty";
-        hashTable[i]->drink = "empty";
-        hashTable[i]->next = nullptr;
+    for (auto & i : hashTable) {
+        i = new item;
+        i->name = "empty";
+        i->drink = "empty";
+        i->next = nullptr;
     }
 };
 
 /**
  * \brief Fonction de hachage 1 (clé est string)
- * \description :
- *      1. Ne supporte pas la permutation. ex.: 'stop', 'tops' (La somme des des codes ASCII sera toujours la même indice donc collision)
- *      2. Ne peut pas générer un entier de plus de d*255 ex.: 'stop' = 4 (4 char) donc 4*255. (resultat : dispersion pas uniforme ce qui cause des collisions)
+ * \description : 1. Ne supporte pas la permutation. ex.: 'stop', 'tops' (La somme des codes ASCII sera toujours la même indice donc resulte en collision)
+ *                2. Ne peut pas générer un entier de plus de d*255 ex.: 'stop' = 4 (4 char) donc 4*255. (resultat : dispersion pas uniforme ce qui cause des collisions)
  * \param key
  */
 size_t HashTable::hash(const std::string &key, int typedeHachage) {
     size_t hash = 0; // type size_t car peut contenir de grande valeur (tjrs positives)
     switch (typedeHachage) {
-
         /*******************************************************************
          Trivial.. pas suggéré (ne considère PAS la position des caractères)
         ********************************************************************/
@@ -49,8 +47,8 @@ size_t HashTable::hash(const std::string &key, int typedeHachage) {
             std::cout << key <<": " <<  hash << std::endl;
             return hash % m_tableSize;
 
-        /** Default *********************************************/
-        default: std::cout <<"Pas de type de hachage" <<  hash << std::endl;
+        /** Default ********************************************************/
+        default: std::cout << "Pas de type de hachage" <<  hash << std::endl;
     }
 
 }
@@ -124,7 +122,7 @@ void HashTable::printTypedeHachage(int num) {
 }
 
 void HashTable::addItem(std::string name, std::string drink) {
-    int index = hash(name, m_typedeHachage);
+    size_t index = hash(name, m_typedeHachage);
     if (hashTable[index]->name == "empty") {
         hashTable[index]->name = name;
         hashTable[index]->drink = drink;
@@ -144,8 +142,8 @@ void HashTable::addItem(std::string name, std::string drink) {
 }
 
 void HashTable::findDrink(std::string name) {
-    int hashIndex = hash(name, m_typedeHachage);
-    std::string drink = "";
+    size_t hashIndex = hash(name, m_typedeHachage);
+    std::string drink;
     item* ptr = hashTable[hashIndex];
     while(ptr != nullptr) {
         if (ptr->name == name) {
@@ -175,7 +173,7 @@ bool HashTable::findItem(std::string name) {
 }
 
 void HashTable::removeItem(std::string name) {
-    int index = hash(name, m_typedeHachage);
+    size_t index = hash(name, m_typedeHachage);
     item* delPtr;
 
     if (hashTable[index]->name == "empty" && hashTable[index]->drink == "empty") {
