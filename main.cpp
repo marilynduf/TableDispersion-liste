@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 
-//#include "Personne.h"
 #include "hashTable.h"
 using namespace std;
 
@@ -36,7 +35,7 @@ int main() {
         std::cout << "Remove : ";
         std::cin >> name;
         if (name != "exit") {
-//            hashObj.findDrink(name);
+//          hashObj.findDrink(name);
             hashObj.removeItem(name);
         }
     }

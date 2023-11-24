@@ -14,17 +14,22 @@ public:
 
     /* fonctions de hachages ************************************/
     static size_t hash(const string &key, int typedeHachage);
-    /* opérations principales ***************************/
+
+    /* opérations principales ***********************************/
     void addItem(string name, std::string drink);
     void removeItem(string name);
     bool findItem(string name);
     void findDrink(string name) const;
-    /* setters *****************************************/
-    void setTypeHachage(int num) { m_typedeHachage = num; }
-    /* opérations secondaires **************************/
+
+    /* setters **************************************************/
+    void setTypeHachage(int num) {
+        m_typedeHachage = num;
+    }
+
+    /* opérations secondaires ***********************************/
     int numberOfItemsInIndex(int index);
 
-    /* affichage ***************************************/
+    /* affichage ************************************************/
     void printTable();
     void printItemsInIndex(int index);
     static void printTypedeHachage(int num);
