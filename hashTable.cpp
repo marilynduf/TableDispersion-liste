@@ -1,7 +1,6 @@
-//
-// Created by Marilyn Dufour on 2023-11-19.
-//
-
+/**
+ * \brief Définition de la classe hashTable
+ */
 #include "hashTable.h"
 #include <iostream>
 
@@ -9,6 +8,9 @@
  * \brief Construteur
  * \param nom
  */
+
+//HashTable::HashTable(size_t tableSize) : m_tableSize(tableSize) {};
+
 HashTable::HashTable() {
     for (auto & i : hashTable) {
         i = new item;
@@ -18,12 +20,14 @@ HashTable::HashTable() {
     }
 };
 
+
 /**
  * \brief Fonction de hachage 1 (clé est string)
  * \description : 1. Ne supporte pas la permutation. ex.: 'stop', 'tops' (La somme des codes ASCII sera toujours la même indice donc resulte en collision)
  *                2. Ne peut pas générer un entier de plus de d*255 ex.: 'stop' = 4 (4 char) donc 4*255. (resultat : dispersion pas uniforme ce qui cause des collisions)
  * \param key
  */
+
 size_t HashTable::hash(const std::string &key, int typedeHachage) {
     size_t hash = 0; // type size_t car peut contenir de grande valeur (tjrs positives)
     switch (typedeHachage) {
@@ -60,7 +64,6 @@ size_t HashTable::hash(const std::string &key, int typedeHachage) {
  *      2. Ne peut pas générer un entier de plus de d*255 ex.: 'stop' = 4 (4 char) donc 4*255. (resultat : dispersion pas uniforme ce qui cause des collisions)
  * \param key
  */
-
 int HashTable::numberOfItemsInIndex(int index) {
     int count = 0;
     if (hashTable[index]->name == "empty") {
@@ -141,7 +144,7 @@ void HashTable::addItem(std::string name, std::string drink) {
     }
 }
 
-void HashTable::findDrink(std::string name) {
+void HashTable::findDrink(std::string name) const {
     size_t hashIndex = hash(name, m_typedeHachage);
     std::string drink;
     item* ptr = hashTable[hashIndex];
@@ -174,30 +177,27 @@ bool HashTable::findItem(std::string name) {
 
 void HashTable::removeItem(std::string name) {
     size_t index = hash(name, m_typedeHachage);
-    item* delPtr;
+    item *delPtr;
 
     if (hashTable[index]->name == "empty" && hashTable[index]->drink == "empty") {
         std::cout << name << " was not found in the bucket is empty" << std::endl;
     }
-
     else if (hashTable[index]->name == name && hashTable[index]->next == nullptr) {
         hashTable[index]->name = "empty";
         hashTable[index]->drink = "empty";
         std::cout << name << "'s item has been removed" << std::endl;
     }
-
     else if (hashTable[index]->name == name) {
         delPtr = hashTable[index];
         hashTable[index] = hashTable[index]->next;
         delete delPtr;
         std::cout << name << "'s item has been removed" << std::endl;
     }
-
     else {
-        item* ptr1 = hashTable[index]->next;
-        item* ptrBefore = hashTable[index];
+        item *ptr1 = hashTable[index]->next;
+        item *ptrBefore = hashTable[index];
 
-        while(ptr1 != nullptr && ptr1->name != name) {
+        while (ptr1 != nullptr && ptr1->name != name) {
             ptrBefore = ptr1;
             ptr1 = ptr1->next;
         }
